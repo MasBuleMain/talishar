@@ -10,6 +10,8 @@ import FullControlToggle from './FullControlToggle';
 import HideModalsToggle from './HideModalsToggle/HideModalsToggle';
 import OptionsMenuToggle from './OptionsMenuToggle';
 import useShortcut from 'hooks/useShortcut';
+import HideChatMobileToggle from './HideChatMobileToggle/HideChatMobileToggle';
+import useWindowDimensions from 'hooks/useWindowDimensions';
 
 function FullScreenButton() {
   function toggleFullScreen() {
@@ -61,6 +63,11 @@ function UndoButton() {
 }
 
 export default function Menu() {
+  
+  const [width, height] = useWindowDimensions();
+
+  const isPortrait = () => height > width;
+
   return (
     <div>
       <div className={styles.menuList}>
@@ -71,6 +78,7 @@ export default function Menu() {
       <div className={styles.menuList}>
         <FullControlToggle />
         <HideModalsToggle />
+        {isPortrait() && <HideChatMobileToggle />}
       </div>
     </div>
   );
